@@ -37,8 +37,40 @@ create replica set:
     mongo --port 27021
 13. set both both mongoDB as slave
     rs.slaveOk()
-
-
+    
+# How to run Project
+1. Install Node v10.16.0
+2. Install swagger
+    npm install -g swagger
+3. start mongoDB replica (Make sure replica set already created)
+   3.1. mongod --dbpath "C:\Program Files\MongoDB\Server\4.1\data" --logpath "C:\Program Files\MongoDB\Server\4.1\log\mongod.log" --  port 27017 --storageEngine=wiredTiger --journal --replSet haikuJam
+   3.2 mongod --dbpath "C:\data1\db" --logpath "C:\data1\log\mongod.log" --port 27020 --storageEngine=wiredTiger --journal --replSet haikuJam
+   3.3 mongod --dbpath "C:\data2\db" --logpath "C:\data2\log\mongod.log" --port 27021 --storageEngine=wiredTiger --journal --replSet haikuJam
+# NOTE: Make sure every mongo instances working or set master and slaves properly(open in diff cmd(ADMIN))
+4. Clone Code used commond:
+    git clone https://github.com/KUNIL1/haikuJam.git
+5. install dependencies used commond:
+   cd haiujam
+   npm i
+6. Run Node server used commond:
+    nodemon app.js
+# API details(USED POSTMAN to CHECK APIs)
+1. Create haiku(POST)
+    api: localhost:10010/api/haikus/v1/haiku
+    request(body): {
+                        "name": <string>,
+                        "content": <string>,
+                        "completed": <boolean>
+                    }
+2. Get haiku(GET)
+    api: localhost:10010/api/haikus/v1/haiku?completed=<boolean>&_id=<bson haiku id(_id)>
+    request(query/u): completed=<boolean>&_id=<bson haiku id>
+3. Uudate haiku(PUT):
+    api: localhost:10010/api/haikus/v1/haiku
+    request: {
+                filter: {_id: <bson haiku id(_id)>},
+                update: {content: <string>}
+                }
 
 
 
